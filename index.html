@@ -20,7 +20,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    /* Ensure any iframe fills wrapper */
+    /* Ensure iframe fills wrapper */
     #vf-wrapper iframe {
       width: 100%;
       border: none;
@@ -32,26 +32,29 @@
     <h1>Marcus (Prototype)</h1>
     <p>Demo with widget iframe shifted to hide branding.</p>
 
-    <div id="vf-wrapper">
-      <div id="chatbot-container"></div>
-    </div>
+    <div id="vf-wrapper"></div>
   </main>
 
   <script type="text/javascript">
     (function (d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
 
-      function cropWidget() {
-        // Voiceflow injects a blob iframe, so just grab ANY iframe inside container
-        var vfIframe = document.querySelector('#vf-wrapper iframe');
+      function moveAndCrop() {
+        var vfIframe = document.querySelector('iframe[src^="blob"]');
         if (!vfIframe) {
-          requestAnimationFrame(cropWidget);
+          requestAnimationFrame(moveAndCrop);
           return;
         }
 
-        // Shift iframe upward to hide footer
+        // Move iframe into wrapper
+        var wrapper = document.getElementById("vf-wrapper");
+        if (vfIframe.parentNode !== wrapper) {
+          wrapper.appendChild(vfIframe);
+        }
+
+        // Apply crop transform
         vfIframe.style.transform = "translateY(calc(-1 * var(--footer-height)))";
-        vfIframe.style.height = "calc(100% + var(--footer-height))"; // avoids cutting off messages
+        vfIframe.style.height = "calc(100% + var(--footer-height))";
         vfIframe.style.willChange = "transform";
       }
 
@@ -63,8 +66,7 @@
           voice: { url: 'https://runtime-api.voiceflow.com' }
         });
 
-        // keep trying until iframe exists
-        cropWidget();
+        moveAndCrop();
       };
 
       v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
