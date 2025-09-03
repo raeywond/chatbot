@@ -1,78 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>My Chatbot Site — Forced Crop</title>
-  <style>
-    :root {
-      --footer-height: 40px; /* adjust until footer is gone */
-    }
+<style>
+  /* Force hide footer inside iframe by cropping */
+  #vf-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 640px; /* Adjust chatbot height */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  #vf-wrapper iframe {
+    width: 100%;
+    border: none;
+    transform: translateY(-35px); /* move iframe up */
+    height: calc(100% + 35px); /* avoid cutting chat area */
+  }
+</style>
 
-    body { margin: 0; font-family: system-ui, sans-serif; }
-    main { max-width: 980px; margin: 24px auto; padding: 16px; }
+<div id="vf-wrapper">
+  <div id="chatbot-container"></div>
+</div>
 
-    /* Wrapper controls final visible area */
-    #vf-wrapper {
-      position: relative;
-      overflow: hidden;
-      height: 640px; /* set chatbot height */
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    /* Ensure iframe fills wrapper */
-    #vf-wrapper iframe {
-      width: 100%;
-      border: none;
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <h1>Marcus (Prototype)</h1>
-    <p>Demo with widget iframe shifted to hide branding.</p>
-
-    <div id="vf-wrapper"></div>
-  </main>
-
-  <script type="text/javascript">
-    (function (d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-
-      function moveAndCrop() {
-        var vfIframe = document.querySelector('iframe[src^="blob"]');
-        if (!vfIframe) {
-          requestAnimationFrame(moveAndCrop);
-          return;
-        }
-
-        // Move iframe into wrapper
-        var wrapper = document.getElementById("vf-wrapper");
-        if (vfIframe.parentNode !== wrapper) {
-          wrapper.appendChild(vfIframe);
-        }
-
-        // Apply crop transform
-        vfIframe.style.transform = "translateY(calc(-1 * var(--footer-height)))";
-        vfIframe.style.height = "calc(100% + var(--footer-height))";
-        vfIframe.style.willChange = "transform";
-      }
-
-      v.onload = function () {
-        window.voiceflow.chat.load({
-          verify: { projectID: '68b6b707e5973a7c5454035d' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: { url: 'https://runtime-api.voiceflow.com' }
-        });
-
-        moveAndCrop();
-      };
-
-      v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
-      v.type = 'text/javascript';
-      s.parentNode.insertBefore(v, s);
-    })(document, 'script');
-  </script>
-</body>
-</html>
+<script>
+  (function (d, t) {
+    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+    v.onload = function () {
+      window.voiceflow.chat.load({
+        verify: { projectID: '68b6b707e5973a7c5454035d' },
+        url: 'https://general-runtime.voiceflow.com',
+        versionID: 'production',
+      });
+    };
+    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+    v.type = "text/javascript";
+    s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
