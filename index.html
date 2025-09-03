@@ -4,26 +4,10 @@
   <meta charset="UTF-8">
   <title>My Chatbot Site</title>
   <style>
- #voiceflow-widget-container {
-  height: calc(100% - 35px) !important; /* trim off the footer height */
-  overflow: hidden !important;
-    }
-
-    /* Container for chatbot */
-    #chatbot-container {
-      position: relative;
-    }
-
-    /* Overlay to cover the footer */
-    #hide-footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 35px; /* adjust until it perfectly hides the Voiceflow footer */
-      background: white; /* match your site’s background color */
-      z-index: 9999;
-      pointer-events: none; /* lets clicks pass through */
+    /* Crop the chatbot iframe so the footer is cut off */
+    #voiceflow-widget-container {
+      height: calc(100% - 35px) !important; /* trim off footer height */
+      overflow: hidden !important;
     }
   </style>
 </head>
@@ -32,10 +16,7 @@
   <p>Thank you for helping</p>
 
   <!-- Chatbot Widget Container -->
-  <div id="chatbot-container">
-    <!-- Voiceflow chatbot will load here -->
-    <div id="hide-footer"></div>
-  </div>
+  <div id="chatbot-container"></div>
 
   <script type="text/javascript">
     (function(d, t) {
