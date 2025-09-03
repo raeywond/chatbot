@@ -1,36 +1,24 @@
 <style>
-  /* Force hide footer inside iframe by cropping */
   #vf-wrapper {
     position: relative;
     overflow: hidden;
-    height: 640px; /* Adjust chatbot height */
+    height: 600px; /* adjust chatbot height */
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
+
   #vf-wrapper iframe {
     width: 100%;
+    height: calc(100% + 40px); /* extra space so text isn’t cut */
     border: none;
-    transform: translateY(-35px); /* move iframe up */
-    height: calc(100% + 35px); /* avoid cutting chat area */
+    transform: translateY(-40px); /* push footer out of view */
   }
 </style>
 
 <div id="vf-wrapper">
   <div id="chatbot-container"></div>
 </div>
-
-<script>
-  (function (d, t) {
-    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-    v.onload = function () {
-      window.voiceflow.chat.load({
-        verify: { projectID: '68b6b707e5973a7c5454035d' },
-        url: 'https://general-runtime.voiceflow.com',
-        versionID: 'production',
-      });
-    };
-    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
-    v.type = "text/javascript";
     s.parentNode.insertBefore(v, s);
   })(document, 'script');
 </script>
+
