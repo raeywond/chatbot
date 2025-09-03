@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <title>My Chatbot Site</title>
   <style>
-    /* Force Voiceflow widget container to relative positioning */
-    #voiceflow-widget-container {
-      position: relative !important;
+    /* Wrapper around the Voiceflow widget */
+    #chatbot-wrapper {
+      position: relative;
+      height: 500px; /* set desired chatbot height */
+      overflow: hidden;
     }
 
-    /* Overlay mask to hide the footer */
-    #voiceflow-widget-container::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
+    /* Crop the Voiceflow widget so footer is cut off */
+    #voiceflow-widget-container {
+      position: absolute !important;
+      top: 0;
       left: 0;
-      width: 100%;
-      height: 35px; /* adjust to perfectly cover the footer */
-      background: white; /* match your chatbot background */
-      z-index: 9999;
-      pointer-events: none; /* allow clicks through */
+      right: 0;
+      bottom: -35px; /* push footer out of view */
     }
   </style>
 </head>
@@ -27,8 +25,10 @@
   <h1>This is a prototype</h1>
   <p>Thank you for helping</p>
 
-  <!-- Chatbot Widget Container -->
-  <div id="chatbot-container"></div>
+  <!-- Chatbot Widget Wrapper -->
+  <div id="chatbot-wrapper">
+    <div id="chatbot-container"></div>
+  </div>
 
   <script type="text/javascript">
     (function(d, t) {
@@ -50,9 +50,4 @@
   </script>
 </body>
 </html>
-
-
-
-
-
 
