@@ -4,10 +4,22 @@
   <meta charset="UTF-8">
   <title>My Chatbot Site</title>
   <style>
-    /* Crop the chatbot iframe so the footer is cut off */
+    /* Force Voiceflow widget container to relative positioning */
     #voiceflow-widget-container {
-      height: calc(100% - 35px) !important; /* trim off footer height */
-      overflow: hidden !important;
+      position: relative !important;
+    }
+
+    /* Overlay mask to hide the footer */
+    #voiceflow-widget-container::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 35px; /* adjust to perfectly cover the footer */
+      background: white; /* match your chatbot background */
+      z-index: 9999;
+      pointer-events: none; /* allow clicks through */
     }
   </style>
 </head>
