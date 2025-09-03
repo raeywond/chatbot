@@ -1,65 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Prototype Chatbot</title>
-<style>
-body {
-margin: 0;
-font-family: Arial, sans-serif;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-height: 100vh;
-background: #f4f4f9;
-color: #333;
-text-align: center;
-}
-h1 {
-margin-bottom: 10px;
-}
-p {
-margin-bottom: 20px;
-}
-iframe {
-width: 100%;
-max-width: 400px;
-height: 500px;
-border: 1px solid #ccc;
-border-radius: 8px;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prototype Chatbot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f4f4f9;
+      color: #333;
+      text-align: center;
+    }
+    h1 { margin-bottom: 10px; }
+    p { margin-bottom: 20px; }
+  </style>
 </head>
 <body>
-<h1>Hello, this is the prototype</h1>
-<p>Thank you for helping!</p>
+  <h1>Hello, this is the prototype</h1>
+  <p>Thank you for helping!</p>
 
+  <!-- ✅ Voiceflow Chatbot Embed -->
+  <script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+          window.voiceflow.chat.load({
+            verify: { projectID: '68b6b707e5973a7c5454035d' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production',
+            voice: {
+              url: "https://runtime-api.voiceflow.com"
+            }
+          });
+        }
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+        v.type = "text/javascript";
+        s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
 
-<!-- Replace the src below with your chatbot embed link -->
-<iframe
-
-  src="<script type="text/javascript">
-  (function(d, t) {
-      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
-        window.voiceflow.chat.load({
-          verify: { projectID: '68b6b707e5973a7c5454035d' },
-          url: 'https://general-runtime.voiceflow.com',
-          versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
-        });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>"
-title="My Chatbot"
-allow="microphone; clipboard-read; clipboard-write">
-</iframe>
 </body>
 </html>
-
-
