@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <title>My Chatbot Site</title>
   <style>
-    /* Attempt to hide Voiceflow branding (doesn't work because of iframe) */
-    #voiceflow-widget-container .vf-footer {
-      display: none !important;
+ #voiceflow-widget-container {
+  height: calc(100% - 35px) !important; /* trim off the footer height */
+  overflow: hidden !important;
     }
 
     /* Container for chatbot */
@@ -57,6 +57,7 @@
   </script>
 </body>
 </html>
+
 
 
 
