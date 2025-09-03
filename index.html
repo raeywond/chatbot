@@ -2,28 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Chatbot Site — Floating Widget</title>
+  <title>My Chatbot Site — Forced Crop</title>
   <style>
     :root {
-      --footer-height: 40px; /* adjust if footer still peeks out */
+      --footer-height: 40px; /* adjust until footer is gone */
     }
 
-    /* Target the floating widget iframe */
-    iframe[src^="blob"] {
-      transform: translateY(calc(-1 * var(--footer-height)));
-      height: calc(100% + var(--footer-height));
-      will-change: transform;
+    body { margin: 0; font-family: system-ui, sans-serif; }
+    main { max-width: 980px; margin: 24px auto; padding: 16px; }
+
+    /* Wrapper controls final visible area */
+    #vf-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 640px; /* set chatbot height */
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Ensure any iframe fills wrapper */
+    #vf-wrapper iframe {
+      width: 100%;
       border: none;
     }
   </style>
 </head>
 <body>
-  <h1>Marcus (Prototype)</h1>
-  <p>Floating chatbot demo with footer hidden.</p>
+  <main>
+    <h1>Marcus (Prototype)</h1>
+    <p>Demo with widget iframe shifted to hide branding.</p>
+
+    <div id="vf-wrapper">
+      <div id="chatbot-container"></div>
+    </div>
+  </main>
 
   <script type="text/javascript">
     (function (d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+
+      function cropWidget() {
+        // Voiceflow injects a blob iframe, so just grab ANY iframe inside container
+        var vfIframe = document.querySelector('#vf-wrapper iframe');
+        if (!vfIframe) {
+          requestAnimationFrame(cropWidget);
+          return;
+        }
+
+        // Shift iframe upward to hide footer
+        vfIframe.style.transform = "translateY(calc(-1 * var(--footer-height)))";
+        vfIframe.style.height = "calc(100% + var(--footer-height))"; // avoids cutting off messages
+        vfIframe.style.willChange = "transform";
+      }
 
       v.onload = function () {
         window.voiceflow.chat.load({
@@ -32,6 +62,9 @@
           versionID: 'production',
           voice: { url: 'https://runtime-api.voiceflow.com' }
         });
+
+        // keep trying until iframe exists
+        cropWidget();
       };
 
       v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
