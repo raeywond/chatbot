@@ -7,6 +7,20 @@
     #voiceflow-widget-container .vf-footer {
         display: none !important;
     }
+    #chatbot-container {
+  position: relative;
+}
+
+#hide-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35px; /* adjust this until it perfectly covers the Voiceflow footer */
+  background: white; /* or match your page background color */
+  z-index: 9999;
+  pointer-events: none; /* makes sure clicks pass through */
+}
   </style>
 </head>
 <body>
@@ -17,6 +31,9 @@
   <!-- Chatbot Widget Container -->
   <div id="chatbot-container">
     <!-- Your chatbot embed code will go here -->
+    <div id="chatbot-container">
+  <div id="hide-footer"></div>
+</div>
   </div>
 </body>
  <script type="text/javascript">
@@ -39,6 +56,7 @@
 <!-- Temporary comment to trigger GitHub Pages -->
 
 </html>
+
 
 
 
