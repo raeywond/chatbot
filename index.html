@@ -1,24 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prototype Chatbot</title>
 <style>
-  #vf-wrapper {
-    position: relative;
-    overflow: hidden;
-    height: 600px; /* adjust chatbot height */
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-
-  #vf-wrapper iframe {
-    width: 100%;
-    height: calc(100% + 40px); /* extra space so text isn’t cut */
-    border: none;
-    transform: translateY(-40px); /* push footer out of view */
-  }
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+background: #f4f4f9;
+color: #333;
+text-align: center;
+}
+h1 {
+margin-bottom: 10px;
+}
+p {
+margin-bottom: 20px;
+}
+iframe {
+width: 100%;
+max-width: 400px;
+height: 500px;
+border: 1px solid #ccc;
+border-radius: 8px;
+}
 </style>
+</head>
+<body>
+<h1>Hello, this is the prototype</h1>
+<p>Thank you for helping!</p>
 
-<div id="vf-wrapper">
-  <div id="chatbot-container"></div>
-</div>
-    s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
+
+<!-- Replace the src below with your chatbot embed link -->
+<iframe
+src="https://your-chatbot-provider.example/embed?bot_id=YOUR_BOT_ID"
+title="My Chatbot"
+allow="microphone; clipboard-read; clipboard-write">
+</iframe>
+</body>
+</html>
 
