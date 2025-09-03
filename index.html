@@ -1,26 +1,30 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>My Chatbot Site</title>
   <style>
-    /* Hides the Voiceflow branding */
+    /* Attempt to hide Voiceflow branding (doesn't work because of iframe) */
     #voiceflow-widget-container .vf-footer {
-        display: none !important;
+      display: none !important;
     }
-    #chatbot-container {
-  position: relative;
-}
 
-#hide-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 35px; /* adjust this until it perfectly covers the Voiceflow footer */
-  background: white; /* or match your page background color */
-  z-index: 9999;
-  pointer-events: none; /* makes sure clicks pass through */
-}
+    /* Container for chatbot */
+    #chatbot-container {
+      position: relative;
+    }
+
+    /* Overlay to cover the footer */
+    #hide-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 35px; /* adjust until it perfectly hides the Voiceflow footer */
+      background: white; /* match your site’s background color */
+      z-index: 9999;
+      pointer-events: none; /* lets clicks pass through */
+    }
   </style>
 </head>
 <body>
@@ -29,12 +33,12 @@
 
   <!-- Chatbot Widget Container -->
   <div id="chatbot-container">
-    <!-- Your chatbot embed code will go here -->
+    <!-- Voiceflow chatbot will load here -->
     <div id="hide-footer"></div>
   </div>
-</body>
- <script type="text/javascript">
-  (function(d, t) {
+
+  <script type="text/javascript">
+    (function(d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
       v.onload = function() {
         window.voiceflow.chat.load({
@@ -45,13 +49,13 @@
             url: "https://runtime-api.voiceflow.com"
           }
         });
-      }
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>
-
-<!-- Temporary comment to trigger GitHub Pages -->
-
+      };
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+      v.type = "text/javascript";
+      s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+</body>
 </html>
 
 
