@@ -1,53 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Chatbot Site</title>
+  <meta charset="UTF-8" />
+  <title>My Chatbot Site — Crop</title>
   <style>
-    /* Wrapper around the Voiceflow widget */
-    #chatbot-wrapper {
-      position: relative;
-      height: 500px; /* set desired chatbot height */
-      overflow: hidden;
-    }
+    :root { --brand-height: 40px; } /* Adjust if any footer peeks through */
 
-    /* Crop the Voiceflow widget so footer is cut off */
-    #voiceflow-widget-container {
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: -35px; /* push footer out of view */
+    body { margin: 0; font-family: system-ui, sans-serif; }
+    main { max-width: 980px; margin: 24px auto; padding: 16px; }
+
+    /* Wrapper that hides the bottom of the widget */
+    #vf-wrapper {
+      position: relative;
+      overflow: hidden;
+      /* Choose a height that fits your bot. Increase if your bot is tall. */
+      height: 640px;
+      border-radius: 16px;
     }
   </style>
 </head>
 <body>
-  <h1>This is a prototype</h1>
-  <p>Thank you for helping</p>
+  <main>
+    <h1>Marcus (Prototype)</h1>
+    <p>Demo with widget cropped to hide branding.</p>
 
-  <!-- Chatbot Widget Wrapper -->
-  <div id="chatbot-wrapper">
-    <div id="chatbot-container"></div>
-  </div>
+    <!-- We control cropping with this wrapper -->
+    <div id="vf-wrapper">
+      <div id="chatbot-container"></div>
+    </div>
+  </main>
 
   <script type="text/javascript">
-    (function(d, t) {
+    (function (d, t) {
       var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-      v.onload = function() {
+
+      function cropWidget() {
+        // Find the injected Voiceflow node (container or iframe)
+        var vfIframe = document.querySelector('iframe[src*="voiceflow"], iframe[src*="vf"]');
+        var vfRoot   = document.getElementById('voiceflow-widget-container');
+        var target   = vfRoot || (vfIframe && vfIframe.parentElement);
+
+        if (!target) {
+          // Try again on the next frame until VF renders
+          requestAnimationFrame(cropWidget);
+          return;
+        }
+
+        // Shift the whole widget up so the footer is outside the wrapper’s view
+        var shift = getComputedStyle(document.documentElement).getPropertyValue('--brand-height').trim() || '40px';
+        target.style.transform = 'translateY(calc(-1 * ' + shift + '))';
+        target.style.willChange = 'transform';
+      }
+
+      v.onload = function () {
         window.voiceflow.chat.load({
           verify: { projectID: '68b6b707e5973a7c5454035d' },
           url: 'https://general-runtime.voiceflow.com',
           versionID: 'production',
-          voice: {
-            url: "https://runtime-api.voiceflow.com"
-          }
+          voice: { url: 'https://runtime-api.voiceflow.com' }
         });
+
+        // Give VF a moment to inject, then start polling until it’s present
+        setTimeout(cropWidget, 300);
       };
-      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
-      v.type = "text/javascript";
+
+      v.src = 'https://cdn.voiceflow.com/widget-next/bundle.mjs';
+      v.type = 'text/javascript';
       s.parentNode.insertBefore(v, s);
     })(document, 'script');
   </script>
 </body>
 </html>
-
